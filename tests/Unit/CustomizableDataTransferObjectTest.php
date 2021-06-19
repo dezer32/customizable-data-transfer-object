@@ -6,13 +6,13 @@ namespace Dezer\CustomizableDataTransferObject\Tests\Unit;
 
 use Carbon\Carbon;
 use DateTimeInterface;
-use Dezer\CustomizableDataTransferObject\Casters\CustomizableValueCaster;
-use Dezer\CustomizableDataTransferObject\CustomizableDataTransferObject;
-use Dezer\CustomizableDataTransferObject\ValueCasterCache;
+use Dezer\CustomizableDataTransferObject\Tests\Unit\Classes\TestDto;
+use Dezer\CustomizableDataTransferObject\Tests\Unit\Classes\TestInnerDto;
+use Dezer\CustomizableDataTransferObject\Tests\Unit\Classes\TestInnerDtoList;
+use Dezer\CustomizableDataTransferObject\Tests\Unit\Classes\TestValueCasterDto;
 use Faker\Factory;
 use Faker\Generator;
 use PHPUnit\Framework\TestCase;
-use Spatie\DataTransferObject\FieldValidator;
 
 class CustomizableDataTransferObjectTest extends TestCase
 {
@@ -23,12 +23,7 @@ class CustomizableDataTransferObjectTest extends TestCase
      */
     public function testSuccessCanCreateBaseDto(array $data): void
     {
-        $dto = new class($data) extends CustomizableDataTransferObject {
-            public bool $bool;
-            public int $int;
-            public float $float;
-            public DateTimeInterface $date;
-        };
+        $dto = new TestDto($data);
 
         self::assertIsBool($dto->bool);
         self::assertIsInt($dto->int);
@@ -89,36 +84,7 @@ class CustomizableDataTransferObjectTest extends TestCase
      */
     public function testSuccessCanAddNewValueCaster(array $data): void
     {
-        $dto = new class($data) extends CustomizableDataTransferObject {
-            public bool $bool;
-            public int $int;
-            public float $float;
-            public DateTimeInterface $date;
-
-            protected function getValueCaster(?CustomizableValueCaster $valueCaster = null): CustomizableValueCaster
-            {
-                $valueCaster = parent::getValueCaster();
-                return ValueCasterCache::cache(
-                    self::class,
-                    function () use ($valueCaster): CustomizableValueCaster {
-                        $newValueCaster = new class() extends CustomizableValueCaster {
-                            public function cast($value, FieldValidator $validator)
-                            {
-                                if (is_bool($value)) {
-                                    return !$value;
-                                }
-
-                                return parent::cast($value, $validator);
-                            }
-                        };
-
-                        $newValueCaster->setNext($valueCaster);
-
-                        return $newValueCaster;
-                    }
-                );
-            }
-        };
+        $dto = new TestValueCasterDto($data);
 
         self::assertEquals(!$data['bool'], $dto->bool);
         self::assertIsInt($dto->int);
@@ -166,12 +132,87 @@ class CustomizableDataTransferObjectTest extends TestCase
         ];
     }
 
-    public function testSuccessCanCastingInnerDto(array $data) {
-        //todo протестировать кастинг вложенных объектов
+    /**
+     * @dataProvider validDataToBaseDataTransferObjetProvider
+     */
+    public function testSuccessCanCastingInnerDto(array $data)
+    {
+        $dto = new TestInnerDto(['var' => $data]);
+
+        self::assertIsBool($dto->var->bool);
+        self::assertIsInt($dto->var->int);
+        self::assertIsFloat($dto->var->float);
+        self::assertInstanceOf(DateTimeInterface::class, $dto->var->date);
     }
 
-    public function testSuccessCanCastingInnerList(array $data) {
-        //todo протестировать кастинг вложенных списков
+    /**
+     * @dataProvider validDataToBaseDataTransferObjetProvider
+     */
+    public function testSuccessCanCastingInnerList(array $data)
+    {
+        $dto = new TestInnerDtoList(['var' => [$data]]);
+
+        self::assertIsBool($dto->var->current()->bool);
+        self::assertIsInt($dto->var->current()->int);
+        self::assertIsFloat($dto->var->current()->float);
+        self::assertInstanceOf(DateTimeInterface::class, $dto->var->current()->date);
+    }
+
+    /**
+     * @dataProvider validDataWithNull
+     */
+    public function testSuccesCanCreateNullBaseDto(array $data)
+    {
+        $dto = new TestDto($data);
+
+        self::assertEquals($data, $dto->toArray());
+    }
+
+    public function validDataWithNull(): array
+    {
+        $this->faker = Factory::create('ru_RU');
+
+        return [
+            [
+                [
+                    'bool' => null,
+                    'int' => $this->faker->randomDigit(),
+                    'float' => $this->faker->randomFloat(),
+                    'date' => $this->faker->dateTime('+30 years')
+                ]
+            ],
+            [
+                [
+                    'bool' => $this->faker->boolean(),
+                    'int' => null,
+                    'float' => $this->faker->randomFloat(),
+                    'date' => $this->faker->dateTime('+30 years')
+                ]
+            ],
+            [
+                [
+                    'bool' => $this->faker->boolean(),
+                    'int' => $this->faker->randomDigit(),
+                    'float' => null,
+                    'date' => $this->faker->dateTime('+30 years')
+                ]
+            ],
+            [
+                [
+                    'bool' => $this->faker->boolean(),
+                    'int' => $this->faker->randomDigit(),
+                    'float' => $this->faker->randomFloat(),
+                    'date' => null
+                ]
+            ],
+        ];
+    }
+
+    public function testSuccessCanCreateNullInnerDto()
+    {
+        $dto = new TestInnerDto(['var' => null]);
+
+        self::assertNull($dto->var);
     }
 
     protected function setUp(): void

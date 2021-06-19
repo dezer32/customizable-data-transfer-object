@@ -20,7 +20,7 @@ class CustomizableValueCaster extends ValueCaster implements CustomizableValueCa
 
     public function cast($value, FieldValidator $validator)
     {
-        if (isset($this->nextValueCaster) && $this->nextValueCaster !== null) {
+        if (isset($this->nextValueCaster) && $this->nextValueCaster !== null && $value !== null) {
             $value = $this->nextValueCaster->cast($value, $validator);
         }
 
