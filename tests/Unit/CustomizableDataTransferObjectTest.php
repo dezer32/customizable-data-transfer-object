@@ -7,6 +7,7 @@ namespace Dezer\CustomizableDataTransferObject\Tests\Unit;
 use Carbon\Carbon;
 use DateTimeInterface;
 use Dezer\CustomizableDataTransferObject\Tests\Unit\Classes\TestDto;
+use Dezer\CustomizableDataTransferObject\Tests\Unit\Classes\TestInnerCollectionCasterDtoList;
 use Dezer\CustomizableDataTransferObject\Tests\Unit\Classes\TestInnerDto;
 use Dezer\CustomizableDataTransferObject\Tests\Unit\Classes\TestInnerDtoList;
 use Dezer\CustomizableDataTransferObject\Tests\Unit\Classes\TestValueCasterDto;
@@ -213,6 +214,28 @@ class CustomizableDataTransferObjectTest extends TestCase
         $dto = new TestInnerDto(['var' => null]);
 
         self::assertNull($dto->var);
+    }
+
+    /**
+     * @dataProvider validBooleanCastInCollectionProvider
+     */
+    public function testSuccessCanCastingCollectionValue(array $data)
+    {
+        $dto = new TestInnerCollectionCasterDtoList(['var' => [$data]]);
+
+        self::assertEquals(!$data[0], $dto->var->current());
+    }
+
+    public function validBooleanCastInCollectionProvider(): array
+    {
+        return [
+            [
+                [true]
+            ],
+            [
+                [false]
+            ]
+        ];
     }
 
     protected function setUp(): void

@@ -8,12 +8,12 @@ use Spatie\DataTransferObject\FieldValidator;
 
 class IntToDoubleValueCaster extends CustomizableValueCaster
 {
-    public function cast($value, FieldValidator $validator)
+    public function castValue($value, array $allowedTypes)
     {
-        if (is_int($value) && in_array('double', $validator->allowedTypes, true)) {
+        if (is_int($value) && in_array('double', $allowedTypes, true)) {
             return (float) $value;
         }
 
-        return parent::cast($value, $validator);
+        return parent::castValue($value, $allowedTypes);
     }
 }

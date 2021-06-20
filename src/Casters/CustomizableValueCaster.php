@@ -18,12 +18,21 @@ class CustomizableValueCaster extends ValueCaster implements CustomizableValueCa
         return $nextValueCaster;
     }
 
-    public function cast($value, FieldValidator $validator)
+    public function castValue($value, array $allowedTypes)
     {
         if (isset($this->nextValueCaster) && $this->nextValueCaster !== null && $value !== null) {
-            $value = $this->nextValueCaster->cast($value, $validator);
+            $value = $this->nextValueCaster->castValue($value, $allowedTypes);
         }
 
         return $value;
+    }
+
+    public function castCollection($values, array $allowedArrayTypes)
+    {
+        if (isset($this->nextValueCaster) && $this->nextValueCaster !== null && $values !== null) {
+            $this->nextValueCaster->castCollection($values, $allowedArrayTypes);
+        }
+
+        return parent::castCollection($values, $allowedArrayTypes);
     }
 }

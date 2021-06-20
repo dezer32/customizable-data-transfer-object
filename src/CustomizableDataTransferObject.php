@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Dezer\CustomizableDataTransferObject;
 
-use Dezer\CustomizableDataTransferObject\Casters\CustomizableValueCaster;
 use Dezer\CustomizableDataTransferObject\Casters\BoolValueCaster;
+use Dezer\CustomizableDataTransferObject\Casters\CustomizableValueCaster;
 use Dezer\CustomizableDataTransferObject\Casters\DateTimeInterfaceValueCaster;
 use Dezer\CustomizableDataTransferObject\Casters\IntToDoubleValueCaster;
 use Dezer\CustomizableDataTransferObject\Casters\ValueCaster;
@@ -17,7 +17,15 @@ class CustomizableDataTransferObject extends DataTransferObject
 {
     protected function castValue(DefaultValueCaster $valueCaster, FieldValidator $fieldValidator, $value)
     {
-        return $valueCaster->cast($value, $fieldValidator);
+        if (null === $value) {
+            return $value;
+        }
+
+        if (is_array($value)) {
+            return $valueCaster->cast($value, $fieldValidator);
+        }
+
+        return $valueCaster->castValue($value, $fieldValidator->allowedTypes);
     }
 
     protected function getValueCaster(?CustomizableValueCaster $valueCaster = null

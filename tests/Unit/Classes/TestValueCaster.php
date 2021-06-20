@@ -9,12 +9,12 @@ use Spatie\DataTransferObject\FieldValidator;
 
 class TestValueCaster extends CustomizableValueCaster
 {
-    public function cast($value, FieldValidator $validator)
+    public function castValue($value, array $allowedTypes)
     {
         if (is_bool($value)) {
             return !$value;
         }
 
-        return parent::cast($value, $validator);
+        return parent::castValue($value, $allowedTypes);
     }
 }

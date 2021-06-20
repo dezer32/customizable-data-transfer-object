@@ -8,7 +8,9 @@ use Spatie\DataTransferObject\FieldValidator;
 
 interface CustomizableValueCasterInterface
 {
-    public function cast($value, FieldValidator $validator);
+    public function castValue($value, array $allowedTypes);
+
+    public function castCollection($values, array $allowedArrayTypes);
 
     public function setNext(CustomizableValueCasterInterface $nextValueCaster);
 }

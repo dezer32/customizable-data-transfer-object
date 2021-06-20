@@ -4,23 +4,28 @@ declare(strict_types=1);
 
 namespace Dezer\CustomizableDataTransferObject\Casters;
 
-use Spatie\DataTransferObject\FieldValidator;
+use Spatie\DataTransferObject\DataTransferObject;
 
 class ValueCaster extends CustomizableValueCaster
 {
-    public function cast($value, FieldValidator $validator)
+    public function castValue($value, array $allowedTypes)
     {
-        if (!is_array($value)) {
-            return parent::cast($value, $validator);
+        $castTo = null;
+
+        foreach ($allowedTypes as $type) {
+            if (!is_subclass_of($type, DataTransferObject::class)) {
+                continue;
+            }
+
+            $castTo = $type;
+
+            break;
         }
 
-        if (!$this->shouldBeCastToCollection($value)) {
-            return $this->castValue($value, $validator->allowedTypes);
+        if (!$castTo) {
+            return parent::castValue($value, $allowedTypes);
         }
 
-        $values = $this->castCollection($value, $validator->allowedArrayTypes);
-        $collectionType = $this->collectionType($validator->allowedTypes);
-
-        return $collectionType ? new $collectionType($values) : $values;
+        return new $castTo($value);
     }
 }
