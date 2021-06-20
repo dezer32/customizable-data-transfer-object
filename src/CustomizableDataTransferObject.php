@@ -10,6 +10,7 @@ use Dezer\CustomizableDataTransferObject\Casters\DateTimeInterfaceValueCaster;
 use Dezer\CustomizableDataTransferObject\Casters\IntToDoubleValueCaster;
 use Dezer\CustomizableDataTransferObject\Casters\ValueCaster;
 use Spatie\DataTransferObject\DataTransferObject;
+use Spatie\DataTransferObject\DataTransferObjectCollection;
 use Spatie\DataTransferObject\FieldValidator;
 use Spatie\DataTransferObject\ValueCaster as DefaultValueCaster;
 
@@ -17,7 +18,11 @@ class CustomizableDataTransferObject extends DataTransferObject
 {
     protected function castValue(DefaultValueCaster $valueCaster, FieldValidator $fieldValidator, $value)
     {
-        if (null === $value) {
+        if (
+            null === $value
+            || is_subclass_of($value, DataTransferObject::class)
+            || is_subclass_of($value, DataTransferObjectCollection::class)
+        ) {
             return $value;
         }
 
