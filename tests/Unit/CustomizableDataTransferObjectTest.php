@@ -4,21 +4,16 @@ declare(strict_types=1);
 
 namespace Dezer\CustomizableDataTransferObject\Tests\Unit;
 
-use Carbon\Carbon;
 use DateTimeInterface;
 use Dezer\CustomizableDataTransferObject\Tests\Unit\Classes\TestDto;
 use Dezer\CustomizableDataTransferObject\Tests\Unit\Classes\TestInnerCollectionCasterDtoList;
 use Dezer\CustomizableDataTransferObject\Tests\Unit\Classes\TestInnerDto;
 use Dezer\CustomizableDataTransferObject\Tests\Unit\Classes\TestInnerDtoList;
 use Dezer\CustomizableDataTransferObject\Tests\Unit\Classes\TestValueCasterDto;
-use Faker\Factory;
-use Faker\Generator;
 use PHPUnit\Framework\TestCase;
 
 class CustomizableDataTransferObjectTest extends TestCase
 {
-    private Generator $faker;
-
     /**
      * @dataProvider validDataToBaseDataTransferObjetProvider
      */
@@ -34,47 +29,37 @@ class CustomizableDataTransferObjectTest extends TestCase
 
     public function validDataToBaseDataTransferObjetProvider(): array
     {
-        $this->faker ??= Factory::create('ru_RU');
-
         return [
             [
                 [
-                    'bool' => $this->faker->boolean(),
-                    'int' => $this->faker->randomDigit(),
-                    'float' => $this->faker->randomFloat(),
-                    'date' => $this->faker->dateTime('+30 years')
+                    'bool' => (bool) rand(0, 1),
+                    'int' => rand(),
+                    'float' => (float) (rand() / 100),
+                    'date' => (new \DateTime()),
                 ]
             ],
             [
                 [
-                    'bool' => $this->faker->boolean(),
-                    'int' => $this->faker->randomDigit(),
-                    'float' => $this->faker->randomDigit(),
-                    'date' => $this->faker->dateTime('+30 years')
+                    'bool' => (bool) rand(0, 1),
+                    'int' => rand(),
+                    'float' => rand(),
+                    'date' => (new \DateTime())
                 ]
             ],
             [
                 [
-                    'bool' => $this->faker->boolean(),
-                    'int' => $this->faker->randomDigit(),
-                    'float' => $this->faker->randomFloat(),
-                    'date' => $this->faker->dateTime('+30 years')->format('d.m.Y')
+                    'bool' => (bool) rand(0, 1),
+                    'int' => rand(),
+                    'float' => (float) (rand() / 100),
+                    'date' => (new \DateTime())->format('d.m.Y')
                 ]
             ],
             [
                 [
                     'bool' => 1,
-                    'int' => $this->faker->randomDigit(),
-                    'float' => $this->faker->randomFloat(),
-                    'date' => $this->faker->dateTime('+30 years')
-                ]
-            ],
-            [
-                [
-                    'bool' => $this->faker->boolean(),
-                    'int' => $this->faker->randomDigit(),
-                    'float' => $this->faker->randomFloat(),
-                    'date' => Carbon::parse($this->faker->dateTime())
+                    'int' => rand(),
+                    'float' => (float) (rand() / 100),
+                    'date' => (new \DateTime())
                 ]
             ]
         ];
@@ -95,39 +80,29 @@ class CustomizableDataTransferObjectTest extends TestCase
 
     public function validDataToNewValueCasterProvider(): array
     {
-        $this->faker ??= Factory::create('ru_RU');
-
         return [
             [
                 [
-                    'bool' => $this->faker->boolean(),
-                    'int' => $this->faker->randomDigit(),
-                    'float' => $this->faker->randomFloat(),
-                    'date' => $this->faker->dateTime('+30 years')
+                    'bool' => (bool) rand(0, 1),
+                    'int' => rand(),
+                    'float' => (float) (rand() / 100),
+                    'date' => (new \DateTime())
                 ]
             ],
             [
                 [
-                    'bool' => $this->faker->boolean(),
-                    'int' => $this->faker->randomDigit(),
-                    'float' => $this->faker->randomDigit(),
-                    'date' => $this->faker->dateTime('+30 years')
+                    'bool' => (bool) rand(0, 1),
+                    'int' => rand(),
+                    'float' => rand(),
+                    'date' => (new \DateTime())
                 ]
             ],
             [
                 [
-                    'bool' => $this->faker->boolean(),
-                    'int' => $this->faker->randomDigit(),
-                    'float' => $this->faker->randomFloat(),
-                    'date' => $this->faker->dateTime('+30 years')->format('d.m.Y')
-                ]
-            ],
-            [
-                [
-                    'bool' => $this->faker->boolean(),
-                    'int' => $this->faker->randomDigit(),
-                    'float' => $this->faker->randomFloat(),
-                    'date' => Carbon::parse($this->faker->dateTime())
+                    'bool' => (bool) rand(0, 1),
+                    'int' => rand(),
+                    'float' => (float) (rand() / 100),
+                    'date' => (new \DateTime())->format('d.m.Y')
                 ]
             ]
         ];
@@ -171,38 +146,36 @@ class CustomizableDataTransferObjectTest extends TestCase
 
     public function validDataWithNull(): array
     {
-        $this->faker = Factory::create('ru_RU');
-
         return [
             [
                 [
                     'bool' => null,
-                    'int' => $this->faker->randomDigit(),
-                    'float' => $this->faker->randomFloat(),
-                    'date' => $this->faker->dateTime('+30 years')
+                    'int' => rand(),
+                    'float' => (float) (rand() / 100),
+                    'date' => (new \DateTime())
                 ]
             ],
             [
                 [
-                    'bool' => $this->faker->boolean(),
+                    'bool' => (bool) rand(0, 1),
                     'int' => null,
-                    'float' => $this->faker->randomFloat(),
-                    'date' => $this->faker->dateTime('+30 years')
+                    'float' => (float) (rand() / 100),
+                    'date' => (new \DateTime())
                 ]
             ],
             [
                 [
-                    'bool' => $this->faker->boolean(),
-                    'int' => $this->faker->randomDigit(),
+                    'bool' => (bool) rand(0, 1),
+                    'int' => rand(),
                     'float' => null,
-                    'date' => $this->faker->dateTime('+30 years')
+                    'date' => (new \DateTime())
                 ]
             ],
             [
                 [
-                    'bool' => $this->faker->boolean(),
-                    'int' => $this->faker->randomDigit(),
-                    'float' => $this->faker->randomFloat(),
+                    'bool' => (bool) rand(0, 1),
+                    'int' => rand(),
+                    'float' => (float) (rand() / 100),
                     'date' => null
                 ]
             ],
@@ -236,12 +209,5 @@ class CustomizableDataTransferObjectTest extends TestCase
                 [false]
             ]
         ];
-    }
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        $this->faker = Factory::create('ru_RU');
     }
 }

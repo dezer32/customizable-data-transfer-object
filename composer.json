@@ -2,11 +2,7 @@
   "name": "dezer/customizable-data-transfer-object",
   "type": "library",
   "require": {
-    "spatie/data-transfer-object": "^2.8",
-    "nesbot/carbon": "^2.49",
-    "phpunit/phpunit": "^9.5",
-    "fakerphp/faker": "^1.14",
-    "illuminate/support": "^8.47"
+    "spatie/data-transfer-object": "^2.8"
   },
   "license": "MIT",
   "autoload": {
@@ -27,6 +23,6 @@
   ],
   "minimum-stability": "stable",
   "require-dev": {
-    "symfony/var-dumper": "^5.3"
+    "phpunit/phpunit": "^9.5"
   }
 }
