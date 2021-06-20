@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Dezer\CustomizableDataTransferObject;
 
+use Dezer\CustomizableDataTransferObject\Casters\BaseTypeCollectionValueCaster;
 use Dezer\CustomizableDataTransferObject\Casters\BoolValueCaster;
 use Dezer\CustomizableDataTransferObject\Casters\CustomizableValueCaster;
 use Dezer\CustomizableDataTransferObject\Casters\DateTimeInterfaceValueCaster;
@@ -41,7 +42,8 @@ class CustomizableDataTransferObject extends DataTransferObject
                 $valueCaster = new ValueCaster();
                 $valueCaster->setNext(new DateTimeInterfaceValueCaster())
                             ->setNext(new IntToDoubleValueCaster())
-                            ->setNext(new BoolValueCaster());
+                            ->setNext(new BoolValueCaster())
+                            ->setNext(new BaseTypeCollectionValueCaster());
 
                 return $valueCaster;
             }

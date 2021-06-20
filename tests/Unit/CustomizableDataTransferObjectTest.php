@@ -9,6 +9,7 @@ use Dezer\CustomizableDataTransferObject\Tests\Unit\Classes\TestDto;
 use Dezer\CustomizableDataTransferObject\Tests\Unit\Classes\TestInnerCollectionCasterDtoList;
 use Dezer\CustomizableDataTransferObject\Tests\Unit\Classes\TestInnerDto;
 use Dezer\CustomizableDataTransferObject\Tests\Unit\Classes\TestInnerDtoList;
+use Dezer\CustomizableDataTransferObject\Tests\Unit\Classes\TestInnerListBaseTypeDto;
 use Dezer\CustomizableDataTransferObject\Tests\Unit\Classes\TestValueCasterDto;
 use PHPUnit\Framework\TestCase;
 
@@ -209,5 +210,15 @@ class CustomizableDataTransferObjectTest extends TestCase
                 [false]
             ]
         ];
+    }
+
+    public function testSuccesCanCreateBaseTypeList()
+    {
+        $data = range('a', 'z');
+
+        $dto = new TestInnerListBaseTypeDto(['var' => $data]);
+
+        self::assertEquals($data, $dto->var->toArray());
+        self::assertIsString($dto->var->current());
     }
 }
