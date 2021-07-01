@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Dezer\CustomizableDataTransferObject;
+namespace Mafin\DTO;
 
-use Dezer\CustomizableDataTransferObject\Casters\BaseTypeCollectionValueCaster;
-use Dezer\CustomizableDataTransferObject\Casters\BoolValueCaster;
-use Dezer\CustomizableDataTransferObject\Casters\CustomizableValueCaster;
-use Dezer\CustomizableDataTransferObject\Casters\DateTimeInterfaceValueCaster;
-use Dezer\CustomizableDataTransferObject\Casters\IntToDoubleValueCaster;
-use Dezer\CustomizableDataTransferObject\Casters\ValueCaster;
+use Mafin\DTO\Casters\BaseTypeCollectionValueCaster;
+use Mafin\DTO\Casters\BoolValueCaster;
+use Mafin\DTO\Casters\CustomizableValueCaster;
+use Mafin\DTO\Casters\DateTimeInterfaceValueCaster;
+use Mafin\DTO\Casters\IntToDoubleValueCaster;
+use Mafin\DTO\Casters\ValueCaster;
 use Spatie\DataTransferObject\DataTransferObject;
 use Spatie\DataTransferObject\DataTransferObjectCollection;
 use Spatie\DataTransferObject\FieldValidator;

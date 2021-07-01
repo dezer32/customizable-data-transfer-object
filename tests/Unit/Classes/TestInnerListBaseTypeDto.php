@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Dezer\CustomizableDataTransferObject\Tests\Unit\Classes;
+namespace Mafin\DTO\Tests\Unit\Classes;
 
-use Dezer\CustomizableDataTransferObject\CustomizableDataTransferObject;
+use Mafin\DTO\CustomizableDataTransferObject;
 
 class TestInnerListBaseTypeDto extends CustomizableDataTransferObject
 {

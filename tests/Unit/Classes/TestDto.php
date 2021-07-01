@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Dezer\CustomizableDataTransferObject\Tests\Unit\Classes;
+namespace Mafin\DTO\Tests\Unit\Classes;
 
 use DateTimeInterface;
-use Dezer\CustomizableDataTransferObject\CustomizableDataTransferObject;
+use Mafin\DTO\CustomizableDataTransferObject;
 
 class TestDto extends CustomizableDataTransferObject
 {

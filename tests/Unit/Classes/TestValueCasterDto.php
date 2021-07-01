@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Dezer\CustomizableDataTransferObject\Tests\Unit\Classes;
+namespace Mafin\DTO\Tests\Unit\Classes;
 
-use Dezer\CustomizableDataTransferObject\Casters\CustomizableValueCaster;
-use Dezer\CustomizableDataTransferObject\ValueCasterCache;
+use Mafin\DTO\Casters\CustomizableValueCaster;
+use Mafin\DTO\ValueCasterCache;
 
 class TestValueCasterDto extends TestDto
 {

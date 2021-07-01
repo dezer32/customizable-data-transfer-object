@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Dezer\CustomizableDataTransferObject\Tests\Unit;
+namespace Mafin\DTO\Tests\Unit;
 
 use DateTimeInterface;
-use Dezer\CustomizableDataTransferObject\Tests\Unit\Classes\TestDto;
-use Dezer\CustomizableDataTransferObject\Tests\Unit\Classes\TestInnerCollectionCasterDtoList;
-use Dezer\CustomizableDataTransferObject\Tests\Unit\Classes\TestInnerDto;
-use Dezer\CustomizableDataTransferObject\Tests\Unit\Classes\TestInnerDtoList;
-use Dezer\CustomizableDataTransferObject\Tests\Unit\Classes\TestInnerListBaseTypeDto;
-use Dezer\CustomizableDataTransferObject\Tests\Unit\Classes\TestValueCasterDto;
+use Mafin\DTO\Tests\Unit\Classes\TestDto;
+use Mafin\DTO\Tests\Unit\Classes\TestInnerCollectionCasterDtoList;
+use Mafin\DTO\Tests\Unit\Classes\TestInnerDto;
+use Mafin\DTO\Tests\Unit\Classes\TestInnerDtoList;
+use Mafin\DTO\Tests\Unit\Classes\TestInnerListBaseTypeDto;
+use Mafin\DTO\Tests\Unit\Classes\TestValueCasterDto;
 use PHPUnit\Framework\TestCase;
 
 class CustomizableDataTransferObjectTest extends TestCase

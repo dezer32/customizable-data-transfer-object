@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Dezer\CustomizableDataTransferObject;
+namespace Mafin\DTO;
 
-use Dezer\CustomizableDataTransferObject\Casters\CustomizableValueCaster;
+use Mafin\DTO\Casters\CustomizableValueCaster;
 
 class ValueCasterCache
 {

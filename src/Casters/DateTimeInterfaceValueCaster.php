@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Dezer\CustomizableDataTransferObject\Casters;
+namespace Mafin\DTO\Casters;
 
 use DateTimeInterface;
 

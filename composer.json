@@ -1,5 +1,5 @@
 {
-  "name": "dezer/customizable-data-transfer-object",
+  "name": "mafin/dto",
   "type": "library",
   "require": {
     "spatie/data-transfer-object": "^2.8"
@@ -7,12 +7,12 @@
   "license": "MIT",
   "autoload": {
     "psr-4": {
-      "Dezer\\CustomizableDataTransferObject\\": "src/"
+      "Mafin\\DTO\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Dezer\\CustomizableDataTransferObject\\Tests\\": "tests/"
+      "Mafin\\DTO\\Tests\\": "tests/"
     }
   },
   "authors": [

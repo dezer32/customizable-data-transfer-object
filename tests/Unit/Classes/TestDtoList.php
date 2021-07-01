@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Dezer\CustomizableDataTransferObject\Tests\Unit\Classes;
+namespace Mafin\DTO\Tests\Unit\Classes;
 
 use Spatie\DataTransferObject\DataTransferObjectCollection;
 

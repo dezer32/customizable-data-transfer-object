@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Dezer\CustomizableDataTransferObject\Tests\Unit\Classes;
+namespace Mafin\DTO\Tests\Unit\Classes;
 
-use Dezer\CustomizableDataTransferObject\Casters\CustomizableValueCaster;
+use Mafin\DTO\Casters\CustomizableValueCaster;
 use Spatie\DataTransferObject\FieldValidator;
 
 class TestValueCaster extends CustomizableValueCaster
