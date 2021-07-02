@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Mafin\DTO\Casters;
 
-use Spatie\DataTransferObject\FieldValidator;
-
 class IntToDoubleValueCaster extends CustomizableValueCaster
 {
     public function castValue($value, array $allowedTypes)

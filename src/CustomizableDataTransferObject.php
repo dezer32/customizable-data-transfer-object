@@ -8,7 +8,9 @@ use Mafin\DTO\Casters\BaseTypeCollectionValueCaster;
 use Mafin\DTO\Casters\BoolValueCaster;
 use Mafin\DTO\Casters\CustomizableValueCaster;
 use Mafin\DTO\Casters\DateTimeInterfaceValueCaster;
+use Mafin\DTO\Casters\EnumValueCaster;
 use Mafin\DTO\Casters\IntToDoubleValueCaster;
+use Mafin\DTO\Casters\UuidInterfaceValueCaster;
 use Mafin\DTO\Casters\ValueCaster;
 use Spatie\DataTransferObject\DataTransferObject;
 use Spatie\DataTransferObject\DataTransferObjectCollection;
@@ -43,6 +45,8 @@ class CustomizableDataTransferObject extends DataTransferObject
                 $valueCaster->setNext(new DateTimeInterfaceValueCaster())
                             ->setNext(new IntToDoubleValueCaster())
                             ->setNext(new BoolValueCaster())
+                            ->setNext(new EnumValueCaster())
+                            ->setNext(new UuidInterfaceValueCaster())
                             ->setNext(new BaseTypeCollectionValueCaster());
 
                 return $valueCaster;
