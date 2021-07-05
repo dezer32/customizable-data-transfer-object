@@ -2,7 +2,9 @@
   "name": "mafin/dto",
   "type": "library",
   "require": {
-    "spatie/data-transfer-object": "^2.8"
+    "spatie/data-transfer-object": "^2.8",
+    "myclabs/php-enum": "^1.8",
+    "ramsey/uuid": "^4.1"
   },
   "license": "MIT",
   "autoload": {

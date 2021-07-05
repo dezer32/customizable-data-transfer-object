@@ -4,12 +4,17 @@ declare(strict_types=1);
 
 namespace Mafin\DTO;
 
+use DateTimeInterface;
 use Mafin\DTO\Casters\BaseTypeCollectionValueCaster;
 use Mafin\DTO\Casters\BoolValueCaster;
 use Mafin\DTO\Casters\CustomizableValueCaster;
 use Mafin\DTO\Casters\DateTimeInterfaceValueCaster;
+use Mafin\DTO\Casters\EnumValueCaster;
 use Mafin\DTO\Casters\IntToDoubleValueCaster;
+use Mafin\DTO\Casters\UuidInterfaceValueCaster;
 use Mafin\DTO\Casters\ValueCaster;
+use MyCLabs\Enum\Enum;
+use Ramsey\Uuid\Rfc4122\UuidInterface;
 use Spatie\DataTransferObject\DataTransferObject;
 use Spatie\DataTransferObject\DataTransferObjectCollection;
 use Spatie\DataTransferObject\FieldValidator;
@@ -17,6 +22,26 @@ use Spatie\DataTransferObject\ValueCaster as DefaultValueCaster;
 
 class CustomizableDataTransferObject extends DataTransferObject
 {
+    public function toArray(): array
+    {
+        $array = parent::toArray();
+
+        array_walk_recursive(
+            $array,
+            static function (&$value) {
+                if (is_subclass_of($value, DateTimeInterface::class)) {
+                    $value = $value->format(DateTimeInterface::RFC3339);
+                } elseif (is_subclass_of($value, Enum::class)) {
+                    $value = $value->getValue();
+                } elseif (is_subclass_of($value, UuidInterface::class)) {
+                    $value = $value->toString();
+                }
+            }
+        );
+
+        return $array;
+    }
+
     protected function castValue(DefaultValueCaster $valueCaster, FieldValidator $fieldValidator, $value)
     {
         if (
@@ -43,6 +68,8 @@ class CustomizableDataTransferObject extends DataTransferObject
                 $valueCaster->setNext(new DateTimeInterfaceValueCaster())
                             ->setNext(new IntToDoubleValueCaster())
                             ->setNext(new BoolValueCaster())
+                            ->setNext(new EnumValueCaster())
+                            ->setNext(new UuidInterfaceValueCaster())
                             ->setNext(new BaseTypeCollectionValueCaster());
 
                 return $valueCaster;

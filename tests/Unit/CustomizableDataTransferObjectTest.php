@@ -6,12 +6,16 @@ namespace Mafin\DTO\Tests\Unit;
 
 use DateTimeInterface;
 use Mafin\DTO\Tests\Unit\Classes\TestDto;
+use Mafin\DTO\Tests\Unit\Classes\TestEnumDto;
 use Mafin\DTO\Tests\Unit\Classes\TestInnerCollectionCasterDtoList;
 use Mafin\DTO\Tests\Unit\Classes\TestInnerDto;
 use Mafin\DTO\Tests\Unit\Classes\TestInnerDtoList;
 use Mafin\DTO\Tests\Unit\Classes\TestInnerListBaseTypeDto;
+use Mafin\DTO\Tests\Unit\Classes\TestUuidDto;
 use Mafin\DTO\Tests\Unit\Classes\TestValueCasterDto;
+use MyCLabs\Enum\Enum;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\UuidInterface;
 
 class CustomizableDataTransferObjectTest extends TestCase
 {
@@ -220,5 +224,27 @@ class CustomizableDataTransferObjectTest extends TestCase
 
         self::assertEquals($data, $dto->var->toArray());
         self::assertIsString($dto->var->current());
+    }
+
+    public function testSuccessCanCreateEnumDto()
+    {
+        $data = [
+            'test' => 'test'
+        ];
+        $dto = new TestEnumDto($data);
+
+        self::assertInstanceOf(Enum::class, $dto->test);
+        self::assertEquals($data['test'], $dto->test->getValue());
+    }
+
+    public function testSuccessCanCreateUuidDto()
+    {
+        $data = [
+            'test' => '00000000-0000-0000-0000-000000000000'
+        ];
+        $dto = new TestUuidDto($data);
+
+        self::assertInstanceOf(UuidInterface::class, $dto->test);
+        self::assertEquals($data['test'], $dto->test->toString());
     }
 }
