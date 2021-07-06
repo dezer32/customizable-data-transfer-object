@@ -14,7 +14,7 @@ use Mafin\DTO\Casters\IntToDoubleValueCaster;
 use Mafin\DTO\Casters\UuidInterfaceValueCaster;
 use Mafin\DTO\Casters\ValueCaster;
 use MyCLabs\Enum\Enum;
-use Ramsey\Uuid\Rfc4122\UuidInterface;
+use Ramsey\Uuid\UuidInterface;
 use Spatie\DataTransferObject\DataTransferObject;
 use Spatie\DataTransferObject\DataTransferObjectCollection;
 use Spatie\DataTransferObject\FieldValidator;
