@@ -11,6 +11,7 @@ use Mafin\DTO\Casters\CustomizableValueCaster;
 use Mafin\DTO\Casters\DateTimeInterfaceValueCaster;
 use Mafin\DTO\Casters\EnumValueCaster;
 use Mafin\DTO\Casters\IntToDoubleValueCaster;
+use Mafin\DTO\Casters\StringToIntValueCaster;
 use Mafin\DTO\Casters\UuidInterfaceValueCaster;
 use Mafin\DTO\Casters\ValueCaster;
 use MyCLabs\Enum\Enum;
@@ -70,7 +71,8 @@ class CustomizableDataTransferObject extends DataTransferObject
                             ->setNext(new BoolValueCaster())
                             ->setNext(new EnumValueCaster())
                             ->setNext(new UuidInterfaceValueCaster())
-                            ->setNext(new BaseTypeCollectionValueCaster());
+                            ->setNext(new BaseTypeCollectionValueCaster())
+                            ->setNext(new StringToIntValueCaster());
 
                 return $valueCaster;
             }

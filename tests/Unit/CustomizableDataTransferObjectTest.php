@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mafin\DTO\Tests\Unit;
 
 use DateTimeInterface;
+use Mafin\DTO\Casters\CustomizableValueCaster;
 use Mafin\DTO\Tests\Unit\Classes\TestDto;
 use Mafin\DTO\Tests\Unit\Classes\TestEnumDto;
 use Mafin\DTO\Tests\Unit\Classes\TestInnerCollectionCasterDtoList;
@@ -246,5 +247,23 @@ class CustomizableDataTransferObjectTest extends TestCase
 
         self::assertInstanceOf(UuidInterface::class, $dto->test);
         self::assertEquals($data['test'], $dto->test->toString());
+    }
+
+    /** @dataProvider castingStringToIntProvider */
+    public function testSuccessCanCastingStringToInt($data) {
+        $dto = new TestDto($data);
+
+        self::assertIsInt($dto->int);
+    }
+
+    public function castingStringToIntProvider(): array {
+        return [
+            [
+                ['int' => rand()]
+            ],
+            [
+                ['int' => (string) rand()]
+            ]
+        ];
     }
 }
