@@ -158,7 +158,7 @@ class CustomizableDataTransferObjectTest extends TestCase
                     'bool' => null,
                     'int' => rand(),
                     'float' => (float) (rand() / 100),
-                    'date' => (new \DateTime())
+                    'date' => (new \DateTime())->format('Y-m-d\TH:i:sP')
                 ]
             ],
             [
@@ -166,7 +166,7 @@ class CustomizableDataTransferObjectTest extends TestCase
                     'bool' => (bool) rand(0, 1),
                     'int' => null,
                     'float' => (float) (rand() / 100),
-                    'date' => (new \DateTime())
+                    'date' => (new \DateTime())->format('Y-m-d\TH:i:sP')
                 ]
             ],
             [
@@ -174,7 +174,7 @@ class CustomizableDataTransferObjectTest extends TestCase
                     'bool' => (bool) rand(0, 1),
                     'int' => rand(),
                     'float' => null,
-                    'date' => (new \DateTime())
+                    'date' => (new \DateTime())->format('Y-m-d\TH:i:sP')
                 ]
             ],
             [
